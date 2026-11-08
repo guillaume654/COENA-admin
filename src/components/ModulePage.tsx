@@ -1,10 +1,22 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import type { ModuleKey } from "@/lib/i18n";
 import { nav } from "@/lib/nav";
-import { Button, EmptyTable, icons, PageHeader, StatGrid, Tabs } from "./ui";
+import { Button, DataTable, icons, PageHeader, StatGrid, Tabs, type Cell } from "./ui";
 
-/** Generic empty module screen: header, KPI tiles, tabs and an empty table. */
-export async function ModulePage({ module, children }: { module: ModuleKey; children?: React.ReactNode }) {
+/** Module screen: header, KPI tiles, tabs and a table (empty until data is passed in). */
+export async function ModulePage({
+  module,
+  rows,
+  numeric,
+  statValues,
+  children,
+}: {
+  module: ModuleKey;
+  rows?: Cell[][];
+  numeric?: number[];
+  statValues?: (string | undefined)[];
+  children?: React.ReactNode;
+}) {
   const { t } = await getServerDictionary();
   const m = t.modules[module];
   const icon = nav.flatMap((g) => g.items).find((i) => i.key === module)?.icon;
@@ -18,9 +30,16 @@ export async function ModulePage({ module, children }: { module: ModuleKey; chil
           {m.action}
         </Button>
       </PageHeader>
-      <StatGrid labels={m.stats} placeholder={t.app.noData} />
+      <StatGrid labels={m.stats} values={statValues} placeholder={t.app.noData} />
       <Tabs tabs={m.tabs} />
-      <EmptyTable columns={m.columns} emptyTitle={m.emptyTitle} emptyBody={m.emptyBody} icon={icon} />
+      <DataTable
+        columns={m.columns}
+        rows={rows}
+        numeric={numeric}
+        emptyTitle={m.emptyTitle}
+        emptyBody={m.emptyBody}
+        icon={icon}
+      />
       {children}
     </>
   );

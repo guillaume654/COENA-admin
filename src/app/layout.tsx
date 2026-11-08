@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { getLocale } from "@/lib/i18n/server";
 import "./globals.css";
 
-// Placeholder typography — replace with COENA brand fonts (see globals.css tokens).
-const sans = Inter({ variable: "--font-sans-brand", subsets: ["latin"] });
-const serif = Playfair_Display({ variable: "--font-serif-brand", subsets: ["latin"] });
+// COENA brand typography: Cormorant Garamond (headlines, 600/700), Inter (body, 300/400/500).
+const sans = Inter({ variable: "--font-sans-brand", subsets: ["latin"], weight: ["300", "400", "500"] });
+const serif = Cormorant_Garamond({ variable: "--font-serif-brand", subsets: ["latin"], weight: ["600", "700"] });
 
 export const metadata: Metadata = {
   title: "COENA Cave",

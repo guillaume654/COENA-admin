@@ -1,40 +1,47 @@
 @import "tailwindcss";
 
 /*
- * Brand tokens — the ONLY place colors and fonts are defined.
- * Swap these values with COENA's brand assets; every screen uses the tokens.
+ * COENA brand tokens (COENA_Brand_Reference v1.0) — the ONLY place colors are defined.
+ *   Garnet     #881124  accent · headlines · CTAs
+ *   Garnet fine #981328 small or thin garnet elements (icons, fine lines)
+ *   Black      #000000  backgrounds · body text
+ *   Dark gray  #707170  subtext · secondary elements
+ *   Light gray #B2B3B2  backgrounds · breathing space
+ * Surfaces and borders below are lighter tints of the light gray.
  */
 :root {
-  --background: #faf8f6;
+  --background: #f6f6f6;
   --surface: #ffffff;
-  --surface-muted: #f3efeb;
-  --foreground: #1f1a17;
-  --muted: #6f6660;
-  --border: #e6dfd8;
-  --brand: #6b1d2f;          /* placeholder burgundy — replace with COENA primary */
+  --surface-muted: #efefef;
+  --foreground: #000000;
+  --muted: #707170;
+  --border: #e0e0e0;
+  --brand: #881124;
+  --brand-fine: #981328;
   --brand-foreground: #ffffff;
-  --brand-soft: #f5e9ec;
-  --sidebar: #1f1a17;
-  --sidebar-foreground: #e9e3dd;
-  --sidebar-muted: #9c928a;
-  --sidebar-active: #3a302b;
+  --brand-soft: #f6e8ea;
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-muted: #b2b3b2;
+  --sidebar-active: #881124;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --background: #141110;
-    --surface: #1c1817;
-    --surface-muted: #24201e;
-    --foreground: #efe9e4;
-    --muted: #a39992;
-    --border: #332c29;
-    --brand: #c25a72;
-    --brand-foreground: #141110;
-    --brand-soft: #3a1f26;
-    --sidebar: #0f0d0c;
-    --sidebar-foreground: #e9e3dd;
-    --sidebar-muted: #8a817a;
-    --sidebar-active: #2a2421;
+    --background: #000000;
+    --surface: #111111;
+    --surface-muted: #1b1b1b;
+    --foreground: #f2f2f2;
+    --muted: #b2b3b2;
+    --border: #2a2a2a;
+    --brand: #881124;
+    --brand-fine: #d4566b; /* lifted garnet so thin elements stay legible on black */
+    --brand-foreground: #ffffff;
+    --brand-soft: #2a0d12;
+    --sidebar: #000000;
+    --sidebar-foreground: #ffffff;
+    --sidebar-muted: #b2b3b2;
+    --sidebar-active: #881124;
   }
 }
 
@@ -46,6 +53,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-brand: var(--brand);
+  --color-brand-fine: var(--brand-fine);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
   --color-sidebar: var(--sidebar);

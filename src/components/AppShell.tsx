@@ -5,15 +5,26 @@ import { Building2, Menu, Search, X } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import type { DataSource } from "@/lib/data/coena";
 
-export function AppShell({ t, locale, children }: { t: Dictionary; locale: Locale; children: React.ReactNode }) {
+export function AppShell({
+  t,
+  locale,
+  source,
+  children,
+}: {
+  t: Dictionary;
+  locale: Locale;
+  source: DataSource;
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-dvh lg:pl-64">
       {/* Desktop sidebar */}
       <aside className="fixed inset-y-0 left-0 hidden w-64 lg:block">
-        <Sidebar t={t} />
+        <Sidebar t={t} source={source} />
       </aside>
 
       {/* Mobile drawer */}
@@ -26,7 +37,7 @@ export function AppShell({ t, locale, children }: { t: Dictionary; locale: Local
             onClick={() => setOpen(false)}
           />
           <aside className="absolute inset-y-0 left-0 w-72 max-w-[85vw]">
-            <Sidebar t={t} onNavigate={() => setOpen(false)} />
+            <Sidebar t={t} source={source} onNavigate={() => setOpen(false)} />
           </aside>
           <button
             type="button"
