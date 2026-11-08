@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * Brand tokens — the ONLY place colors and fonts are defined.
+ * Swap these values with COENA's brand assets; every screen uses the tokens.
+ */
+:root {
+  --background: #faf8f6;
+  --surface: #ffffff;
+  --surface-muted: #f3efeb;
+  --foreground: #1f1a17;
+  --muted: #6f6660;
+  --border: #e6dfd8;
+  --brand: #6b1d2f;          /* placeholder burgundy — replace with COENA primary */
+  --brand-foreground: #ffffff;
+  --brand-soft: #f5e9ec;
+  --sidebar: #1f1a17;
+  --sidebar-foreground: #e9e3dd;
+  --sidebar-muted: #9c928a;
+  --sidebar-active: #3a302b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #141110;
+    --surface: #1c1817;
+    --surface-muted: #24201e;
+    --foreground: #efe9e4;
+    --muted: #a39992;
+    --border: #332c29;
+    --brand: #c25a72;
+    --brand-foreground: #141110;
+    --brand-soft: #3a1f26;
+    --sidebar: #0f0d0c;
+    --sidebar-foreground: #e9e3dd;
+    --sidebar-muted: #8a817a;
+    --sidebar-active: #2a2421;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-active: var(--sidebar-active);
+  --font-sans: var(--font-sans-brand), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-brand), ui-serif, Georgia, serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
