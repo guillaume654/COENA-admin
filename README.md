@@ -1,6 +1,6 @@
-# COENA Cave — stock & cellar management
+# COENA Reserve — stock & cellar management
 
-Web app for sommeliers, F&B managers and cellar managers, companion to the COENA digital wine list.
+Web app for sommeliers, F&B managers and cellar managers. Sold with COENA Wine List (iPad) or on its own.
 Single venue, French/English.
 
 **Status:** every screen is laid out. Users sign in with their COENA account through the COENA backend

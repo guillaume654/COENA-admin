@@ -8,7 +8,7 @@ const sans = Inter({ variable: "--font-sans-brand", subsets: ["latin"], weight: 
 const serif = Cormorant_Garamond({ variable: "--font-serif-brand", subsets: ["latin"], weight: ["600", "700"] });
 
 export const metadata: Metadata = {
-  title: "COENA Cave",
+  title: "COENA Reserve",
   description: "Gestion de stock et de cave pour sommeliers, F&B managers et responsables de cave.",
 };
 

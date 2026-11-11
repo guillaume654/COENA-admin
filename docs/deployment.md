@@ -1,4 +1,4 @@
-# Deploying on AWS Amplify Hosting
+# Deploying COENA Reserve on AWS Amplify Hosting
 
 The app runs on **AWS Amplify Hosting** in COENA's existing AWS account, region **Ireland (eu-west-1)**,
 next to the COENA backend it calls. The COENA domain stays at IONOS; only DNS records point to Amplify.
@@ -14,7 +14,7 @@ Nothing here touches the backend's CDK stacks.
    give it access to **`guillaume654/COENA-admin` only** (not all repositories).
 4. Repository `COENA-admin`, branch **`claude/upbeat-clarke-jsphvj`** (switch to `main` once it's merged) → **Next**.
 5. App settings:
-   - App name: `coena-cave`.
+   - App name: `coena-reserve`.
    - Build settings: Amplify detects **`amplify.yml`** from the repository and the framework **Next.js - SSR**. Keep them.
    - Service role: **Create and use a new service role** (lets Amplify write the app's logs to CloudWatch).
 6. **Advanced settings → Environment variables**: add the three below (see section 2).
@@ -43,14 +43,14 @@ They are not exposed to the browser.
 with a username and password you share with the team. Visitors then need that password before even seeing the
 COENA login page. Remove it when the app opens to venues.
 
-## 4. Custom domain `cave.coena.fr` (DNS at IONOS)
+## 4. Custom domain `reserve.coena.fr` (DNS at IONOS)
 
 1. Amplify: **Hosting → Custom domains → Add domain** → enter `coena.fr` → **Configure domain**.
-2. Keep only the subdomain **`cave`** pointing to the branch; **untick the root domain and `www`**
+2. Keep only the subdomain **`reserve`** pointing to the branch; **untick the root domain and `www`**
    (the website stays at IONOS).
 3. Amplify shows **two DNS records** (because DNS is not managed by AWS Route 53):
    - a **CNAME for certificate validation** (name like `_abc123.coena.fr`, value ending in `acm-validations.aws`)
-   - a **CNAME for `cave`** (value ending in `cloudfront.net`)
+   - a **CNAME for `reserve`** (value ending in `cloudfront.net`)
 4. IONOS: **Domains & SSL → coena.fr → DNS → Add record → CNAME**, once for each record, copying name and value exactly.
 5. Back in Amplify the status goes from *Pending verification* to *Available* (from a few minutes up to a few hours).
    The HTTPS certificate is issued and renewed automatically.
@@ -58,7 +58,7 @@ COENA login page. Remove it when the app opens to venues.
 The existing website and email at IONOS are not affected.
 
 ## 5. How sign-in works
-- Users sign in with their **COENA account** (same login and password as on the iPad).
+- Users sign in with their **COENA account** (same login and password as in COENA Wine List).
 - The app's server hashes the password (SHA-256, like the iPad app) and calls the backend's `POST /auth`.
   The password is never stored.
 - The backend's tokens are kept in an **encrypted, httpOnly cookie** (AES-256-GCM); the browser cannot read them.

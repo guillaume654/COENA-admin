@@ -2,8 +2,8 @@ import type { Dictionary } from "./index";
 
 const en: Dictionary = {
   app: {
-    name: "COENA Cellar",
-    tagline: "Stock & cellar",
+    name: "COENA Reserve",
+    tagline: "Reserve",
     venuePlaceholder: "Venue",
     search: "Search a wine, a supplier…",
     menu: "Menu",
@@ -30,7 +30,7 @@ const en: Dictionary = {
   },
   auth: {
     title: "Sign in",
-    subtitle: "Sign in with your COENA account, as on the iPad.",
+    subtitle: "Sign in with your COENA account.",
     login: "Login",
     password: "Password",
     submit: "Sign in",
@@ -71,7 +71,7 @@ const en: Dictionary = {
     ],
     panels: {
       alerts: { title: "Alerts", empty: "No alerts. Low stock and stock-outs will show here." },
-      sales: { title: "Latest COENA sales", empty: "Sales from the COENA wine list will show here." },
+      sales: { title: "Latest sales", empty: "Sales from COENA Wine List will show here." },
       movements: { title: "Recent movements", empty: "Receipts, depletions and transfers will show here." },
       windows: { title: "Drinking windows", empty: "Wines reaching their peak will show here." },
       topWines: { title: "Top sellers", empty: "Your best-selling wines will show here." },
@@ -81,7 +81,7 @@ const en: Dictionary = {
     title: "Integrations",
     status: "Not connected",
     items: [
-      { name: "COENA wine list", body: "Real-time sales and automatic hiding of sold-out wines." },
+      { name: "COENA Wine List", body: "Real-time sales and automatic hiding of sold-out wines." },
       { name: "COENA server (AWS)", body: "Sign-in with COENA accounts and wine list data." },
       { name: "Point of sale (POS)", body: "Lightspeed, Zelty, L’Addition, Tiller, Oracle Simphony." },
       { name: "Accounting", body: "Export purchases and stock valuation." },
@@ -106,7 +106,7 @@ const en: Dictionary = {
       tabs: ["All", "Wines", "Champagnes", "Spirits", "Other drinks"],
       columns: ["Wine", "Appellation", "Region", "Vintage", "Format", "Location", "Stock", "Par", "Unit cost", "List price"],
       emptyTitle: "No items",
-      emptyBody: "Import your cellar from an Excel/CSV file or sync the COENA wine list.",
+      emptyBody: "Import your cellar from an Excel/CSV file or sync COENA Wine List.",
     },
     cellar: {
       title: "Cellar map",
@@ -180,23 +180,23 @@ const en: Dictionary = {
     },
     sales: {
       title: "Sales",
-      description: "Sales from the COENA wine list, automatically depleted from stock.",
+      description: "Sales from COENA Wine List, automatically depleted from stock.",
       action: "Sync",
       stats: ["Revenue (7 d)", "Bottles sold (7 d)", "Glasses sold (7 d)", "Avg. bottle price"],
       tabs: ["Transactions", "By wine", "By service"],
       columns: ["Date", "Table", "Covers", "Wine", "Appellation", "Vintage", "Format", "Qty", "Unit price", "Total", "Stock left"],
       emptyTitle: "No synced sales",
-      emptyBody: "Connect the COENA wine list to import transactions.",
+      emptyBody: "Connect COENA Wine List to import sales.",
     },
     winelist: {
       title: "Wine list",
-      description: "Availability on the COENA wine list: auto-hide when out of stock, prices and markups.",
+      description: "Availability on COENA Wine List: auto-hide when out of stock, prices and markups.",
       action: "Publish changes",
       stats: ["Wines on list", "Hidden (out of stock)", "Last bottles", "In stock, not listed"],
       tabs: ["Listed", "Not listed", "Pricing rules"],
       columns: ["Wine", "Vintage", "Section", "Stock", "Cost price", "List price", "Markup", "Visible"],
       emptyTitle: "Wine list not synced",
-      emptyBody: "The COENA list will be linked to stock so sold-out wines hide automatically.",
+      emptyBody: "Your COENA Wine List will be linked to stock so sold-out wines hide automatically.",
     },
     reports: {
       title: "Reports",

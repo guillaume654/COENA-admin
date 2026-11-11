@@ -1,4 +1,4 @@
-# COENA wine list data → stock app
+# COENA Wine List data → COENA Reserve
 
 Source: the COENA backend, `GET /transaction?iCloudAccountName=<login>` (collection `transactions` in MongoDB Atlas, ~202K documents).
 Code: `src/lib/data/coena.ts` (types and mapping), `src/lib/data/transactions.ts` (reads through the backend).

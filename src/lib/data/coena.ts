@@ -1,6 +1,6 @@
 /**
  * Shape of documents in `DigitalMenu-Database.transactions`, written by the
- * COENA wine list app. Each document is one stock movement for one wine:
+ * COENA Wine List app. Each document is one stock movement for one wine:
  * `currentStock` is the stock before, `newStock` the stock after.
  *
  * Int64 fields (Long) arrive as plain numbers: the driver's default

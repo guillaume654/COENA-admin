@@ -1,8 +1,8 @@
 // French is the default locale and the source of truth for dictionary shape.
 const fr = {
   app: {
-    name: "COENA Cave",
-    tagline: "Stock & cave",
+    name: "COENA Reserve",
+    tagline: "Reserve",
     venuePlaceholder: "Établissement",
     search: "Rechercher un vin, un fournisseur…",
     menu: "Menu",
@@ -29,7 +29,7 @@ const fr = {
   },
   auth: {
     title: "Connexion",
-    subtitle: "Connectez-vous avec votre compte COENA, comme sur l’iPad.",
+    subtitle: "Connectez-vous avec votre compte COENA.",
     login: "Identifiant",
     password: "Mot de passe",
     submit: "Se connecter",
@@ -70,7 +70,7 @@ const fr = {
     ],
     panels: {
       alerts: { title: "Alertes", empty: "Aucune alerte. Les seuils de stock et ruptures apparaîtront ici." },
-      sales: { title: "Dernières ventes COENA", empty: "Les ventes de la carte des vins COENA apparaîtront ici." },
+      sales: { title: "Dernières ventes", empty: "Les ventes de COENA Wine List apparaîtront ici." },
       movements: { title: "Mouvements récents", empty: "Entrées, sorties et transferts apparaîtront ici." },
       windows: { title: "Fenêtres de dégustation", empty: "Les vins arrivant à leur apogée apparaîtront ici." },
       topWines: { title: "Meilleures ventes", empty: "Le classement des vins les plus vendus apparaîtra ici." },
@@ -80,7 +80,7 @@ const fr = {
     title: "Intégrations",
     status: "Non connectée",
     items: [
-      { name: "Carte des vins COENA", body: "Ventes en temps réel et masquage automatique des ruptures." },
+      { name: "COENA Wine List", body: "Ventes en temps réel et masquage automatique des ruptures." },
       { name: "Serveur COENA (AWS)", body: "Connexion avec les comptes COENA et données de la carte." },
       { name: "Caisse (POS)", body: "Lightspeed, Zelty, L’Addition, Tiller, Oracle Simphony." },
       { name: "Comptabilité", body: "Export des achats et de la valorisation du stock." },
@@ -105,7 +105,7 @@ const fr = {
       tabs: ["Tout", "Vins", "Champagnes", "Spiritueux", "Autres boissons"],
       columns: ["Vin", "Appellation", "Région", "Millésime", "Format", "Emplacement", "Stock", "Seuil", "Coût unitaire", "Prix carte"],
       emptyTitle: "Aucune référence",
-      emptyBody: "Importez votre cave depuis un fichier Excel/CSV ou synchronisez la carte COENA.",
+      emptyBody: "Importez votre cave depuis un fichier Excel/CSV ou synchronisez COENA Wine List.",
     },
     cellar: {
       title: "Plan de cave",
@@ -179,23 +179,23 @@ const fr = {
     },
     sales: {
       title: "Ventes",
-      description: "Ventes issues de la carte des vins COENA, décrémentées automatiquement du stock.",
+      description: "Ventes issues de COENA Wine List, décrémentées automatiquement du stock.",
       action: "Synchroniser",
       stats: ["Chiffre d’affaires (7 j)", "Bouteilles vendues (7 j)", "Verres vendus (7 j)", "Prix moyen bouteille"],
       tabs: ["Transactions", "Par vin", "Par service"],
       columns: ["Date", "Table", "Couverts", "Vin", "Appellation", "Millésime", "Format", "Qté", "Prix unitaire", "Total", "Stock restant"],
       emptyTitle: "Aucune vente synchronisée",
-      emptyBody: "Connectez la carte des vins COENA pour importer les transactions.",
+      emptyBody: "Connectez COENA Wine List pour importer les ventes.",
     },
     winelist: {
       title: "Carte des vins",
-      description: "Disponibilité des vins sur la carte COENA : masquage automatique en rupture, prix et coefficients.",
+      description: "Disponibilité des vins sur COENA Wine List : masquage automatique en rupture, prix et coefficients.",
       action: "Publier les changements",
       stats: ["Vins à la carte", "Masqués (rupture)", "Dernières bouteilles", "Hors carte en stock"],
       tabs: ["À la carte", "Hors carte", "Règles de prix"],
       columns: ["Vin", "Millésime", "Rubrique", "Stock", "Prix d’achat", "Prix carte", "Coefficient", "Visible"],
       emptyTitle: "Carte non synchronisée",
-      emptyBody: "La carte COENA sera reliée au stock pour masquer les ruptures automatiquement.",
+      emptyBody: "Votre carte COENA Wine List sera reliée au stock pour masquer les ruptures automatiquement.",
     },
     reports: {
       title: "Rapports",
