@@ -8,6 +8,7 @@ transactions from MongoDB Atlas when configured; other screens are empty until t
 
 - [`docs/market-research.md`](docs/market-research.md): market scan and feature priorities.
 - [`docs/data-model.md`](docs/data-model.md): how wine list transactions map to the app, and open questions.
+- [`docs/deployment.md`](docs/deployment.md): hosting on Vercel (Frankfurt), Atlas access and the IONOS domain.
 
 ## Run locally
 
