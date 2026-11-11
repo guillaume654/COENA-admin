@@ -38,8 +38,8 @@ export type CoenaTransaction = {
   reason?: string;
 };
 
-/** Where screen data comes from: Atlas, the two built-in samples, or nothing. */
-export type DataSource = "mongodb" | "demo" | "none";
+/** Where screen data comes from: the COENA backend, the two built-in samples, or nothing. */
+export type DataSource = "api" | "demo" | "none";
 
 /** transactionType 10 + reason "Vente" in every sample: inferred, not confirmed. */
 export const TRANSACTION_TYPE_SALE = 10;

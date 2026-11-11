@@ -1,7 +1,7 @@
 # COENA wine list data → stock app
 
-Source: MongoDB Atlas, `COENA Production` → `DigitalMenu-Database` → `transactions` (~202K documents).
-Code: `src/lib/data/coena.ts` (types and mapping), `src/lib/data/transactions.ts` (read-only queries).
+Source: the COENA backend, `GET /transaction?iCloudAccountName=<login>` (collection `transactions` in MongoDB Atlas, ~202K documents).
+Code: `src/lib/data/coena.ts` (types and mapping), `src/lib/data/transactions.ts` (reads through the backend).
 
 ## What a transaction is
 
@@ -10,8 +10,8 @@ The app already keeps a stock per wine: `currentStock` is the stock before, `new
 
 | Field | Example | Used for |
 |---|---|---|
-| `owner_id` | `5d88c9e7…` | Venue. Every query is scoped to `COENA_OWNER_ID`. |
-| `iCloudAccountName` | `lecantou` | Not read (excluded from queries). |
+| `iCloudAccountName` | `lecantou` | **Venue**: the account's `login`. Every read is scoped to the signed-in venue. |
+| `owner_id` | `5d88c9e7…` | Legacy, not used by the backend. |
 | `wine.name` | `Marie Antoinette. Vincent` | Wine label |
 | `wine.cepage` | `AOC POUILLY FUISSE` | Shown as **appellation** (despite the field name) |
 | `wine.type` | `1`, `2` | Wine category — **meaning not confirmed** |
@@ -38,4 +38,4 @@ The app already keeps a stock per wine: `currentStock` is the stock before, `new
 2. What does `wine.type` mean (1 = red, 2 = white…)?
 3. Value of `containerType` for wines by the glass?
 4. Is there a wines/catalogue collection holding current stock, list price and purchase cost?
-5. Which fields do the 3 existing indexes cover? Queries filter on `owner_id` and sort by `date`.
+5. The backend's `GET /transaction` has no date range or paging: each call returns the venue's full history.

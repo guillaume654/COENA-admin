@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, Menu, Search, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { AccountMenu, type ShellUser } from "./AccountMenu";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import type { DataSource } from "@/lib/data/coena";
 
@@ -11,11 +12,13 @@ export function AppShell({
   t,
   locale,
   source,
+  user,
   children,
 }: {
   t: Dictionary;
   locale: Locale;
   source: DataSource;
+  user: ShellUser;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -60,12 +63,9 @@ export function AppShell({
           <Menu className="size-5" />
         </button>
 
-        <div className="hidden items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-muted sm:flex">
-          <Building2 className="size-4" aria-hidden />
-          {t.app.venuePlaceholder}
-        </div>
+        <AccountMenu user={user} t={t.auth} />
 
-        <label className="relative ml-auto flex max-w-sm flex-1 items-center sm:ml-2">
+        <label className="relative ml-auto hidden max-w-sm flex-1 items-center sm:ml-2 sm:flex">
           <Search className="pointer-events-none absolute left-3 size-4 text-muted" aria-hidden />
           <input
             type="search"
@@ -76,9 +76,6 @@ export function AppShell({
 
         <div className="ml-auto flex items-center gap-3">
           <LocaleSwitcher locale={locale} label={t.app.language} />
-          <span className="grid size-8 place-items-center rounded-full bg-surface-muted text-xs font-medium text-muted">
-            —
-          </span>
         </div>
       </header>
 

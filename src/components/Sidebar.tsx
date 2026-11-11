@@ -55,9 +55,9 @@ export function Sidebar({ t, source, onNavigate }: { t: Dictionary; source: Data
       <div className="flex items-center gap-2 border-t border-white/10 px-5 py-4 text-xs text-sidebar-muted">
         <span
           aria-hidden
-          className={clsx("size-2 rounded-full", source === "mongodb" ? "bg-emerald-500" : source === "demo" ? "bg-amber-400" : "bg-sidebar-muted/50")}
+          className={clsx("size-2 rounded-full", source === "api" ? "bg-emerald-500" : source === "demo" ? "bg-amber-400" : "bg-sidebar-muted/50")}
         />
-        {source === "mongodb" ? t.app.syncOn : source === "demo" ? t.app.syncDemo : t.app.syncOff}
+        {source === "api" ? t.app.syncOn : source === "demo" ? t.app.syncDemo : t.app.syncOff}
       </div>
     </nav>
   );
