@@ -1,0 +1,24 @@
+# AWS Amplify Hosting build settings (Next.js SSR, "WEB_COMPUTE" platform).
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 22 && nvm use 22
+        - node --version
+        - npm ci
+    build:
+      commands:
+        # Amplify's console variables are only visible during the build. Write the ones the
+        # server needs into .env.production so the running app (incl. middleware) can read them.
+        # None of them is exposed to the browser (no NEXT_PUBLIC_ prefix).
+        - env | grep -E '^(COENA_API_URL|COENA_TIMEZONE|COENA_DEMO_DATA|SESSION_SECRET)=' >> .env.production || true
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*

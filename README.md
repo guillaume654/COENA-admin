@@ -9,7 +9,7 @@ until their data exists.
 
 - [`docs/market-research.md`](docs/market-research.md): market scan and feature priorities.
 - [`docs/data-model.md`](docs/data-model.md): how wine list transactions map to the app, and open questions.
-- [`docs/deployment.md`](docs/deployment.md): hosting on Vercel (Frankfurt), Atlas access and the IONOS domain.
+- [`docs/deployment.md`](docs/deployment.md): hosting on AWS Amplify (Ireland), environment variables and the IONOS domain.
 
 ## Run locally
 
@@ -27,6 +27,7 @@ To sign in with real COENA accounts, copy `.env.example` to `.env.local` and set
 
 | Path | What |
 |---|---|
+| `amplify.yml` | AWS Amplify build settings. |
 | `src/app/globals.css` | COENA brand colors (Garnet, black, grays) as tokens. |
 | `src/app/layout.tsx` | Brand fonts: Cormorant Garamond (headlines), Inter (body). |
 | `public/brand/` | COENA logos (garnet and white). `src/app/icon.png` is the plate mark. |
