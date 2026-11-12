@@ -77,12 +77,26 @@ export async function backendRefresh(refreshToken: string): Promise<Tokens> {
   return parseTokens(res);
 }
 
-/** GET with the access token. */
+/** Give up on slow backend calls before the hosting platform's own request limit (~30 s). */
+function timeoutMs() {
+  const v = Number(process.env.COENA_API_TIMEOUT_MS);
+  return Number.isFinite(v) && v > 0 ? v : 20_000;
+}
+
+/** GET with the access token. A timeout or a gateway timeout raises BackendError(504). */
 export async function backendGet<T>(path: string, accessToken: string): Promise<T> {
-  const res = await fetch(url(path), {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    cache: "no-store",
-  });
+  let res: Response;
+  try {
+    res = await fetch(url(path), {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
+      signal: AbortSignal.timeout(timeoutMs()),
+    });
+  } catch (e) {
+    const name = e instanceof Error ? e.name : "";
+    if (name === "TimeoutError" || name === "AbortError") throw new BackendError(`Timeout on ${path.split("?")[0]}`, 504);
+    throw new BackendError(`Backend unreachable on ${path.split("?")[0]}`, 503);
+  }
   if (res.status === 401 || res.status === 403) throw new BackendError("Not authorised", 401);
   if (!res.ok) throw new BackendError(`Backend error on ${path.split("?")[0]} (${res.status})`, res.status);
   return (await res.json()) as T;

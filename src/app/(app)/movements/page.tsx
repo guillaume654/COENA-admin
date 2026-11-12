@@ -2,13 +2,13 @@ import { ModulePage } from "@/components/ModulePage";
 import { formatLabel, stockDelta } from "@/lib/data/coena";
 import { getTransactions } from "@/lib/data/transactions";
 import { formatDateTime, formatNumber, formatSigned } from "@/lib/format";
-import { getLocale } from "@/lib/i18n/server";
+import { getServerDictionary } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const locale = await getLocale();
-  const movements = await getTransactions({ limit: 100 });
+  const { locale, t } = await getServerDictionary();
+  const { items: movements, error } = await getTransactions({ limit: 100 });
 
   const rows = movements.map((t) => [
     formatDateTime(locale, t.date),
@@ -21,5 +21,5 @@ export default async function Page() {
     formatNumber(locale, t.newStock),
   ]);
 
-  return <ModulePage module="movements" rows={rows} numeric={[3, 5, 6, 7]} />;
+  return <ModulePage module="movements" rows={rows} numeric={[3, 5, 6, 7]} notice={error && t.dataErrors[error]} />;
 }

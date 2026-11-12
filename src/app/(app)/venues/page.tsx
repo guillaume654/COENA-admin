@@ -5,18 +5,18 @@ import { switchVenueAction } from "@/app/actions/auth";
 import { authMode } from "@/lib/auth/config";
 import { backendGet, BackendError } from "@/lib/auth/backend";
 import { requireSession } from "@/lib/auth/server";
-import { isAdmin } from "@/lib/auth/session";
+import { isSuperAdmin } from "@/lib/auth/session";
 import { getServerDictionary } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
 
 type ListedAccount = { login: string; name?: string };
 
-/** Admin-only list of all COENA accounts (GET /account/list). Access is checked here, not only in the backend. */
+/** Super-admin-only list of all COENA accounts (GET /account/list). Access is checked here, not only in the backend. */
 export default async function VenuesPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   if (authMode() !== "backend") notFound();
   const session = await requireSession();
-  if (!isAdmin(session)) notFound();
+  if (!isSuperAdmin(session)) notFound();
 
   const { t } = await getServerDictionary();
   const q = ((await searchParams).q ?? "").trim().toLowerCase();

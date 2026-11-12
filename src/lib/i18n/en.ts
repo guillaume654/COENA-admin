@@ -47,16 +47,20 @@ const en: Dictionary = {
     linked: "Linked accounts",
     allVenues: "All venues…",
     signedInAs: "Signed in as",
-    admin: "Admin",
+    superAdmin: "Super admin",
     logout: "Sign out",
   },
   venues: {
     title: "Venues",
-    description: "All COENA accounts. Admins only.",
+    description: "All COENA accounts. Super-admins only.",
     search: "Search by name or login",
     open: "Open",
     current: "Showing",
     empty: "No venue matches.",
+  },
+  dataErrors: {
+    slow: "This venue’s sales couldn’t be loaded: the COENA server sends the whole history at once and took too long to respond. Loading by period will come with a future server update.",
+    unavailable: "The COENA server didn’t respond. Try again in a moment.",
   },
   dashboard: {
     title: "Dashboard",

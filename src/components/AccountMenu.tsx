@@ -13,7 +13,7 @@ export type ShellUser = {
   activeLogin: string;
   activeName?: string;
   linkedAccounts: string[];
-  isAdmin: boolean;
+  isSuperAdmin: boolean;
   /** Demo mode: no real account, no menu actions. */
   demo?: boolean;
 };
@@ -68,9 +68,9 @@ export function AccountMenu({ user, t }: { user: ShellUser; t: Dictionary["auth"
             <div className="text-xs text-muted">{t.signedInAs}</div>
             <div className="flex items-center gap-2">
               <span className="truncate text-sm font-medium">{user.name || user.login}</span>
-              {user.isAdmin && (
+              {user.isSuperAdmin && (
                 <span className="rounded bg-brand px-1.5 py-0.5 text-[10px] font-medium uppercase text-brand-foreground">
-                  {t.admin}
+                  {t.superAdmin}
                 </span>
               )}
             </div>
@@ -98,7 +98,7 @@ export function AccountMenu({ user, t }: { user: ShellUser; t: Dictionary["auth"
                 </button>
               </form>
             ))}
-            {user.isAdmin && (
+            {user.isSuperAdmin && (
               <Link
                 href="/venues"
                 role="menuitem"

@@ -30,8 +30,13 @@ In the app: **Hosting → Environment variables** (or step 6 above).
 | `COENA_API_URL` | `https://q1a21h275f.execute-api.eu-west-1.amazonaws.com/prod` (live backend) |
 | `SESSION_SECRET` | 64 random characters, e.g. from `openssl rand -hex 32`. Changing it signs everyone out. |
 | `COENA_TIMEZONE` | `Europe/Paris` |
+| `COENA_SUPERADMINS` | COENA logins allowed to open **every** venue, comma-separated (e.g. `coena_internal_admin`). Leave empty for none. |
+| `COENA_API_TIMEOUT_MS` | Optional. How long to wait for the backend before showing "too slow" (default `20000`). |
 
 Leave `COENA_DEMO_DATA` unset.
+
+**Super-admins:** only the logins in `COENA_SUPERADMINS` see **Tous les établissements…**. The backend's `ADMIN`
+role does **not** grant that in COENA Reserve, because some venue accounts carry it.
 
 **After changing a variable, redeploy** (Hosting → the branch → **Redeploy this version**): Amplify only passes
 variables to the build, and `amplify.yml` writes these to `.env.production` so the running app can read them.
@@ -65,7 +70,7 @@ The existing website and email at IONOS are not affected.
   The access token (10 min) is renewed automatically by the middleware; a refused renewal signs the user out.
 - Data is read through the backend, always filtered on the active venue taken from the session.
   Rows that belong to another venue are dropped even if the backend returns them.
-- Venue switcher: own account and its `linkedAccounts`; `ADMIN` accounts can open any venue from **/venues**.
+- Venue switcher: own account and its `linkedAccounts`; super-admins (`COENA_SUPERADMINS`) can open any venue from **/venues**.
 - The app does not connect to MongoDB, so no Atlas access-list change is needed.
 
 ## 6. After the first deploy, check
@@ -75,7 +80,7 @@ The existing website and email at IONOS are not affected.
    (lowercase SHA-256) needs adjusting.
 3. Sales and Movements show the venue's sales. The first load can be slow for venues with a long history
    (the backend's `GET /transaction` has no paging yet).
-4. An `ADMIN` account sees **Tous les établissements…** in the venue menu.
+4. A login listed in `COENA_SUPERADMINS` sees **Tous les établissements…** in the venue menu; other accounts don't.
 
 Logs: **Hosting → Monitoring** (requests, errors) and **Hosting → Logs** (build logs). Server logs are in
 CloudWatch, under the service role created in step 1.

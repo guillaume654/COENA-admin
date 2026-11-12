@@ -46,16 +46,20 @@ const fr = {
     linked: "Comptes liés",
     allVenues: "Tous les établissements…",
     signedInAs: "Connecté en tant que",
-    admin: "Admin",
+    superAdmin: "Super admin",
     logout: "Se déconnecter",
   },
   venues: {
     title: "Établissements",
-    description: "Tous les comptes COENA. Réservé aux administrateurs.",
+    description: "Tous les comptes COENA. Réservé aux super-administrateurs.",
     search: "Rechercher par nom ou identifiant",
     open: "Ouvrir",
     current: "Affiché",
     empty: "Aucun établissement ne correspond.",
+  },
+  dataErrors: {
+    slow: "Les ventes de cet établissement n’ont pas pu être chargées : le serveur COENA envoie tout l’historique en une fois et a mis trop de temps à répondre. Le chargement par période arrivera avec une prochaine évolution du serveur.",
+    unavailable: "Le serveur COENA n’a pas répondu. Réessayez dans un instant.",
   },
   dashboard: {
     title: "Tableau de bord",

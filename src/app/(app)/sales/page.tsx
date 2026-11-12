@@ -2,13 +2,16 @@ import { ModulePage } from "@/components/ModulePage";
 import { formatLabel } from "@/lib/data/coena";
 import { getSalesSummary, getTransactions } from "@/lib/data/transactions";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/format";
-import { getLocale } from "@/lib/i18n/server";
+import { getServerDictionary } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const locale = await getLocale();
-  const [sales, summary] = await Promise.all([getTransactions({ salesOnly: true, limit: 100 }), getSalesSummary(7)]);
+  const { locale, t } = await getServerDictionary();
+  const [{ items: sales, error }, { summary }] = await Promise.all([
+    getTransactions({ salesOnly: true, limit: 100 }),
+    getSalesSummary(7),
+  ]);
 
   const rows = sales.map((t) => [
     formatDateTime(locale, t.date),
@@ -31,5 +34,13 @@ export default async function Page() {
     formatCurrency(locale, summary.avgBottlePrice),
   ];
 
-  return <ModulePage module="sales" rows={rows} numeric={[1, 2, 5, 7, 8, 9, 10]} statValues={statValues} />;
+  return (
+    <ModulePage
+      module="sales"
+      rows={rows}
+      numeric={[1, 2, 5, 7, 8, 9, 10]}
+      statValues={statValues}
+      notice={error && t.dataErrors[error]}
+    />
+  );
 }

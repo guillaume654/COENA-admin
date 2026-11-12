@@ -173,3 +173,16 @@ export function Panel({ title, action, children }: { title: string; action?: str
     </section>
   );
 }
+
+/** Warning shown above a page when its data couldn't be loaded. */
+export function DataNotice({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <div
+      role="status"
+      className="mb-6 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-foreground"
+    >
+      {message}
+    </div>
+  );
+}

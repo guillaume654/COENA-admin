@@ -17,13 +17,24 @@ export type Session = {
   name?: string;
   roles: string[];
   linkedAccounts: string[];
-  /** Venue whose data is shown: own login, a linked account, or any account for ADMIN. */
+  /** Venue whose data is shown: own login, a linked account, or any account for a super-admin. */
   activeLogin: string;
   activeName?: string;
 };
 
-export function isAdmin(s: Pick<Session, "roles">) {
-  return s.roles.includes("ADMIN");
+/**
+ * Super-admins can open every venue. Granted only to the logins listed in COENA_SUPERADMINS
+ * (comma-separated), never by the backend's ADMIN role, which some venue accounts carry.
+ */
+export function superAdminLogins(): string[] {
+  return (process.env.COENA_SUPERADMINS ?? "")
+    .split(",")
+    .map((l) => l.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function isSuperAdmin(s: Pick<Session, "login">) {
+  return superAdminLogins().includes(s.login.toLowerCase());
 }
 
 /** Venues a user may switch to without going through the admin list. */
@@ -31,9 +42,9 @@ export function selectableLogins(s: Pick<Session, "login" | "linkedAccounts">) {
   return [s.login, ...s.linkedAccounts.filter((l) => l !== s.login)];
 }
 
-/** Whether this user may view `target`. Mirrors the backend's "linked user" rule. */
-export function canAccess(s: Pick<Session, "login" | "linkedAccounts" | "roles">, target: string) {
-  return target === s.login || s.linkedAccounts.includes(target) || isAdmin(s);
+/** Whether this user may view `target`: own account, a linked account, or any account for a super-admin. */
+export function canAccess(s: Pick<Session, "login" | "linkedAccounts">, target: string) {
+  return target === s.login || s.linkedAccounts.includes(target) || isSuperAdmin(s);
 }
 
 async function key(): Promise<Uint8Array> {

@@ -1,5 +1,5 @@
 import { ArrowLeftRight, Bell, CalendarClock, Receipt, Trophy } from "lucide-react";
-import { EmptyState, Panel, PageHeader, StatGrid } from "@/components/ui";
+import { DataNotice, EmptyState, Panel, PageHeader, StatGrid } from "@/components/ui";
 import { getServerDictionary } from "@/lib/i18n/server";
 import { formatLabel } from "@/lib/data/coena";
 import { getSalesSummary, getTransactions } from "@/lib/data/transactions";
@@ -10,7 +10,10 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const { t, locale } = await getServerDictionary();
   const p = t.dashboard.panels;
-  const [latest, summary] = await Promise.all([getTransactions({ salesOnly: true, limit: 5 }), getSalesSummary(7)]);
+  const [{ items: latest, error }, { summary }] = await Promise.all([
+    getTransactions({ salesOnly: true, limit: 5 }),
+    getSalesSummary(7),
+  ]);
 
   // Only "Sales (7 days)" (index 3) comes from wine-list transactions today.
   const kpiValues = [undefined, undefined, undefined, formatCurrency(locale, summary?.revenue)];
@@ -18,6 +21,7 @@ export default async function DashboardPage() {
   return (
     <>
       <PageHeader title={t.dashboard.title} description={t.dashboard.description} />
+      <DataNotice message={error && t.dataErrors[error]} />
       <StatGrid labels={t.dashboard.kpis} values={kpiValues} placeholder={t.app.noData} />
 
       <div className="grid gap-4 lg:grid-cols-3">

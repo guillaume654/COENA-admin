@@ -1,7 +1,7 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import type { ModuleKey } from "@/lib/i18n";
 import { nav } from "@/lib/nav";
-import { Button, DataTable, icons, PageHeader, StatGrid, Tabs, type Cell } from "./ui";
+import { Button, DataNotice, DataTable, icons, PageHeader, StatGrid, Tabs, type Cell } from "./ui";
 
 /** Module screen: header, KPI tiles, tabs and a table (empty until data is passed in). */
 export async function ModulePage({
@@ -9,12 +9,15 @@ export async function ModulePage({
   rows,
   numeric,
   statValues,
+  notice,
   children,
 }: {
   module: ModuleKey;
   rows?: Cell[][];
   numeric?: number[];
   statValues?: (string | undefined)[];
+  /** Shown above the page when its data couldn't be loaded. */
+  notice?: string;
   children?: React.ReactNode;
 }) {
   const { t } = await getServerDictionary();
@@ -30,6 +33,7 @@ export async function ModulePage({
           {m.action}
         </Button>
       </PageHeader>
+      <DataNotice message={notice} />
       <StatGrid labels={m.stats} values={statValues} placeholder={t.app.noData} />
       <Tabs tabs={m.tabs} />
       <DataTable
