@@ -1,3 +1,4 @@
+import Link from "next/link";
 import clsx from "clsx";
 import { Download, Filter, Inbox, Plus, Upload, type LucideIcon } from "lucide-react";
 
@@ -77,7 +78,31 @@ export function StatGrid({
   );
 }
 
-export function Tabs({ tabs }: { tabs: string[] }) {
+export type TabItem = { label: string; href: string; active: boolean };
+
+/** Tabs. With `items`, each tab is a link (real filtering); otherwise static labels, first one selected. */
+export function Tabs({ tabs, items }: { tabs: string[]; items?: TabItem[] }) {
+  if (items) {
+    return (
+      <nav className="mb-4 flex gap-1 overflow-x-auto border-b border-border" aria-label="Filtres">
+        {items.map((tab) => (
+          <Link
+            key={tab.href}
+            href={tab.href}
+            aria-current={tab.active ? "page" : undefined}
+            className={clsx(
+              "-mb-px whitespace-nowrap border-b-2 px-3 py-2 text-sm",
+              tab.active
+                ? "border-brand font-medium text-foreground"
+                : "border-transparent text-muted hover:text-foreground",
+            )}
+          >
+            {tab.label}
+          </Link>
+        ))}
+      </nav>
+    );
+  }
   return (
     <div className="mb-4 flex gap-1 overflow-x-auto border-b border-border" role="tablist">
       {tabs.map((tab, i) => (
@@ -117,6 +142,7 @@ export function DataTable({
   columns,
   rows = [],
   numeric = [],
+  mutedFirst = true,
   emptyTitle,
   emptyBody,
   icon,
@@ -125,6 +151,8 @@ export function DataTable({
   rows?: Cell[][];
   /** Indexes of right-aligned (numeric) columns. */
   numeric?: number[];
+  /** Grey first column (dates); turn off when it holds the main label. */
+  mutedFirst?: boolean;
   emptyTitle: string;
   emptyBody: string;
   icon?: LucideIcon;
@@ -147,7 +175,7 @@ export function DataTable({
             {rows.map((row, r) => (
               <tr key={r} className="hover:bg-surface-muted/60">
                 {row.map((cell, i) => (
-                  <td key={i} className={clsx("whitespace-nowrap px-4 py-3", align(i), i === 0 && "text-muted")}>
+                  <td key={i} className={clsx("whitespace-nowrap px-4 py-3", align(i), i === 0 && (mutedFirst ? "text-muted" : "font-medium"))}>
                     {cell ?? "—"}
                   </td>
                 ))}
@@ -183,6 +211,40 @@ export function DataNotice({ message }: { message?: string }) {
       className="mb-6 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-foreground"
     >
       {message}
+    </div>
+  );
+}
+
+/** Previous / next links under a table. */
+export function Pager({
+  label,
+  prevHref,
+  nextHref,
+  prevLabel,
+  nextLabel,
+}: {
+  label: string;
+  prevHref?: string;
+  nextHref?: string;
+  prevLabel: string;
+  nextLabel: string;
+}) {
+  const btn = "rounded-md border border-border px-3 py-1.5 text-sm";
+  return (
+    <div className="mt-4 flex items-center justify-between gap-4 text-sm text-muted">
+      <span>{label}</span>
+      <div className="flex gap-2">
+        {prevHref ? (
+          <Link href={prevHref} className={clsx(btn, "hover:bg-surface-muted")}>{prevLabel}</Link>
+        ) : (
+          <span className={clsx(btn, "opacity-40")}>{prevLabel}</span>
+        )}
+        {nextHref ? (
+          <Link href={nextHref} className={clsx(btn, "hover:bg-surface-muted")}>{nextLabel}</Link>
+        ) : (
+          <span className={clsx(btn, "opacity-40")}>{nextLabel}</span>
+        )}
+      </div>
     </div>
   );
 }

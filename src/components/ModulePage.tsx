@@ -1,7 +1,7 @@
 import { getServerDictionary } from "@/lib/i18n/server";
 import type { ModuleKey } from "@/lib/i18n";
 import { nav } from "@/lib/nav";
-import { Button, DataNotice, DataTable, icons, PageHeader, StatGrid, Tabs, type Cell } from "./ui";
+import { Button, DataNotice, DataTable, icons, PageHeader, StatGrid, Tabs, type Cell, type TabItem } from "./ui";
 
 /** Module screen: header, KPI tiles, tabs and a table (empty until data is passed in). */
 export async function ModulePage({
@@ -10,6 +10,8 @@ export async function ModulePage({
   numeric,
   statValues,
   notice,
+  tabItems,
+  mutedFirst,
   children,
 }: {
   module: ModuleKey;
@@ -18,6 +20,9 @@ export async function ModulePage({
   statValues?: (string | undefined)[];
   /** Shown above the page when its data couldn't be loaded. */
   notice?: string;
+  /** Tabs as links (real filters) instead of the dictionary's static labels. */
+  tabItems?: TabItem[];
+  mutedFirst?: boolean;
   children?: React.ReactNode;
 }) {
   const { t } = await getServerDictionary();
@@ -35,11 +40,12 @@ export async function ModulePage({
       </PageHeader>
       <DataNotice message={notice} />
       <StatGrid labels={m.stats} values={statValues} placeholder={t.app.noData} />
-      <Tabs tabs={m.tabs} />
+      <Tabs tabs={m.tabs} items={tabItems} />
       <DataTable
         columns={m.columns}
         rows={rows}
         numeric={numeric}
+        mutedFirst={mutedFirst}
         emptyTitle={m.emptyTitle}
         emptyBody={m.emptyBody}
         icon={icon}
