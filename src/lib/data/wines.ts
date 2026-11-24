@@ -25,10 +25,17 @@ export const FORMATS = [
 
 export type FormatKey = (typeof FORMATS)[number]["key"];
 
+/** Wine `type`: 0 apéritif/Champagne, 1 red, 2 white, 3 rosé, 4 dessert (COENA data model). */
+export const CATEGORIES = [0, 1, 2, 3, 4] as const;
+export type Category = (typeof CATEGORIES)[number];
+
 export type Wine = {
   id: string;
+  /** Appellation per the data model; in practice often the full wine name. */
   name: string;
-  appellation?: string;
+  /** Domaine (`cepage` in the data model). */
+  domaine?: string;
+  category?: Category;
   region?: string;
   country?: string;
   vintage?: number;
@@ -41,7 +48,7 @@ export type Wine = {
 export type StockRow = {
   wineId: string;
   name: string;
-  appellation?: string;
+  domaine?: string;
   region?: string;
   vintage?: number;
   cellar?: string;
@@ -60,7 +67,8 @@ export function fromWineDoc(doc: Record<string, unknown>): Wine {
   return {
     id: String(doc.id ?? doc._id ?? ""),
     name: str(doc.name) ?? "—",
-    appellation: str(doc.cepage),
+    domaine: str(doc.cepage),
+    category: (CATEGORIES as readonly number[]).includes(num(doc.type) ?? -1) ? (num(doc.type) as Category) : undefined,
     region: str(doc.region),
     country: str(doc.pays),
     vintage: millesime && millesime > 0 ? millesime : undefined,
@@ -86,7 +94,7 @@ export function toRows(wine: Wine): StockRow[] {
   return formats.map((f) => ({
     wineId: wine.id,
     name: wine.name,
-    appellation: wine.appellation,
+    domaine: wine.domaine,
     region: wine.region,
     vintage: wine.vintage,
     cellar: wine.cellar,
@@ -166,7 +174,8 @@ const DEMO_WINES: Wine[] = [
   {
     id: "demo-1",
     name: "Rully 1er Cru \"La Bressande\" - Château de Rully",
-    appellation: "Côte Chalonnaise",
+    domaine: "Château de Rully",
+    category: 2,
     region: "Bourgogne",
     country: "France",
     vintage: 2017,

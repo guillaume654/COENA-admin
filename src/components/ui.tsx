@@ -248,3 +248,36 @@ export function Pager({
     </div>
   );
 }
+
+/** Pill-shaped filter links (e.g. wine categories). */
+export function Chips({ items }: { items: TabItem[] }) {
+  return (
+    <nav className="mb-4 flex flex-wrap gap-2" aria-label="Catégories">
+      {items.map((c) => (
+        <Link
+          key={c.href}
+          href={c.href}
+          aria-current={c.active ? "page" : undefined}
+          className={clsx(
+            "rounded-full border px-3 py-1 text-xs",
+            c.active
+              ? "border-brand bg-brand text-brand-foreground"
+              : "border-border bg-surface text-muted hover:text-foreground",
+          )}
+        >
+          {c.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+/** Centered spinner in the COENA garnet. */
+export function Spinner({ label, className }: { label: string; className?: string }) {
+  return (
+    <div className={clsx("flex flex-col items-center gap-3", className)} role="progressbar" aria-label={label}>
+      <span className="size-10 animate-spin rounded-full border-4 border-brand/20 border-t-brand" aria-hidden />
+      <span className="text-sm text-muted">{label}</span>
+    </div>
+  );
+}

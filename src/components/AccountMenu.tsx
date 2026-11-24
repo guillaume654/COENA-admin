@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import clsx from "clsx";
 import { Building2, Check, ChevronDown, LogOut, Store } from "lucide-react";
 import { logoutAction, switchVenueAction } from "@/app/actions/auth";
 import type { Dictionary } from "@/lib/i18n";
@@ -81,23 +80,32 @@ export function AccountMenu({ user, t }: { user: ShellUser; t: Dictionary["auth"
             <div className="px-4 pb-1 pt-2 text-[11px] font-medium uppercase tracking-wider text-muted">
               {t.switchVenue}
             </div>
-            {options.map((o) => (
+            {options.map((o) =>
+              o.login === user.activeLogin ? (
+                <div
+                  key={o.login}
+                  role="menuitem"
+                  aria-current="true"
+                  className="flex w-full items-center gap-2 px-4 py-2 text-sm font-medium"
+                >
+                  <Store className="size-4 shrink-0 text-muted" aria-hidden />
+                  <span className="min-w-0 flex-1 truncate">{o.label}</span>
+                  <Check className="size-4 shrink-0 text-brand-fine" aria-label="✓" />
+                </div>
+              ) : (
               <form key={o.login} action={switchVenueAction}>
                 <input type="hidden" name="login" value={o.login} />
                 <button
                   type="submit"
                   role="menuitem"
-                  className={clsx(
-                    "flex w-full items-center gap-2 px-4 py-2 text-left text-sm hover:bg-surface-muted",
-                    o.login === user.activeLogin && "font-medium",
-                  )}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm hover:bg-surface-muted"
                 >
                   <Store className="size-4 shrink-0 text-muted" aria-hidden />
                   <span className="min-w-0 flex-1 truncate">{o.label}</span>
-                  {o.login === user.activeLogin && <Check className="size-4 shrink-0 text-brand-fine" aria-label="✓" />}
                 </button>
               </form>
-            ))}
+              ),
+            )}
             {user.isSuperAdmin && (
               <Link
                 href="/venues"

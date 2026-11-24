@@ -69,3 +69,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+/* Loading indicators appear after a short delay, so fast pages don't flicker. */
+@keyframes coena-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.coena-delayed-fade {
+  animation: coena-fade-in 0.2s ease-out 0.15s both;
+}

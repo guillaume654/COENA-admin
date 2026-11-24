@@ -11,6 +11,7 @@ export async function ModulePage({
   statValues,
   notice,
   tabItems,
+  beforeTable,
   mutedFirst,
   children,
 }: {
@@ -23,6 +24,8 @@ export async function ModulePage({
   /** Tabs as links (real filters) instead of the dictionary's static labels. */
   tabItems?: TabItem[];
   mutedFirst?: boolean;
+  /** Extra filters shown between the tabs and the table. */
+  beforeTable?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   const { t } = await getServerDictionary();
@@ -41,6 +44,7 @@ export async function ModulePage({
       <DataNotice message={notice} />
       <StatGrid labels={m.stats} values={statValues} placeholder={t.app.noData} />
       <Tabs tabs={m.tabs} items={tabItems} />
+      {beforeTable}
       <DataTable
         columns={m.columns}
         rows={rows}

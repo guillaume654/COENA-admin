@@ -13,8 +13,8 @@ The app already keeps a stock per wine: `currentStock` is the stock before, `new
 | `iCloudAccountName` | `lecantou` | **Venue**: the account's `login`. Every read is scoped to the signed-in venue. |
 | `owner_id` | `5d88c9e7…` | Legacy, not used by the backend. |
 | `wine.name` | `Marie Antoinette. Vincent` | Wine label |
-| `wine.cepage` | `AOC POUILLY FUISSE` | Shown as **appellation** (despite the field name) |
-| `wine.type` | `1`, `2` | Wine category — **meaning not confirmed** |
+| `wine.cepage` | `AOC POUILLY FUISSE` | **Domaine** per the COENA data model (in practice sometimes the appellation) |
+| `wine.type` | `1`, `2` | Category: 0 apéritif/Champagne, 1 red, 2 white, 3 rosé, 4 dessert (see `coena-data-model.md`) |
 | `wine.millesime`, `region`, `country` | `2017`, `Bourgogne`, `France` | Vintage, region, country |
 | `wine.cloudKitID` | `8010D8FC-…` / `64623836…` | Stable wine identifier (two formats seen) |
 | `date` | `2019-09-26T21:26:51Z` | Movement date (UTC, shown in Europe/Paris) |

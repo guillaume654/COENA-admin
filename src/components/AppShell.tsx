@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { AccountMenu, type ShellUser } from "./AccountMenu";
+import { NavigationProgress } from "./NavigationProgress";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import type { DataSource } from "@/lib/data/coena";
 
@@ -80,6 +81,9 @@ export function AppShell({
       </header>
 
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:py-8">{children}</main>
+      <Suspense fallback={null}>
+        <NavigationProgress label={t.app.loading} resetKey={user.activeLogin} />
+      </Suspense>
     </div>
   );
 }

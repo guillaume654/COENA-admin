@@ -8,6 +8,7 @@ Single venue, French/English.
 until their data exists.
 
 - [`docs/market-research.md`](docs/market-research.md): market scan and feature priorities.
+- [`docs/coena-data-model.md`](docs/coena-data-model.md): COENA data model (fields and codes), from Notion.
 - [`docs/data-model.md`](docs/data-model.md): how wine list transactions map to the app, and open questions.
 - [`docs/deployment.md`](docs/deployment.md): hosting on AWS Amplify (Ireland), environment variables and the IONOS domain.
 
