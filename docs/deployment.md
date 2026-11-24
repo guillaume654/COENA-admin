@@ -27,7 +27,7 @@ In the app: **Hosting → Environment variables** (or step 6 above).
 
 | Name | Value |
 |---|---|
-| `COENA_API_URL` | `https://q1a21h275f.execute-api.eu-west-1.amazonaws.com/prod` (live backend) |
+| `COENA_API_URL` | `https://d31rof6cupw1bf.cloudfront.net` (production, official address from the API docs). Stage: `https://d17i7qx8iycxy9.cloudfront.net` |
 | `SESSION_SECRET` | 64 random characters, e.g. from `openssl rand -hex 32`. Changing it signs everyone out. |
 | `COENA_TIMEZONE` | `Europe/Paris` |
 | `COENA_SUPERADMINS` | COENA logins allowed to open **every** venue, comma-separated (e.g. `coena_internal_admin`). Leave empty for none. |
